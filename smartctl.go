@@ -113,7 +113,8 @@ func (smart *SMARTctl) Collect() {
 		smart.mineNvmeBytesWritten()
 	}
 	// SCSI, SAS
-	if smart.device.interface_ == "scsi" {
+	if smart.device.interface_ == "scsi" ||
+		(strings.Contains(smart.device.interface_, "megaraid") && strings.ToLower(smart.device.protocol) == "scsi") {
 		smart.mineSCSIGrownDefectList()
 		smart.mineSCSIErrorCounterLog()
 		smart.mineSCSIBytesRead()
